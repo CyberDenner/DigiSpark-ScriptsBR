@@ -1,31 +1,27 @@
-#include "DigiKeyboard.h"
+#include "DigiKeyboardPtBr.h"
 void setup() {
   //empty
 }
 void loop() {
-  DigiKeyboard.sendKeyStroke(0);
-  DigiKeyboard.sendKeyStroke(KEY_D, MOD_GUI_LEFT);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("powershell");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("$client = new-object System.Net.WebClient");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("$client.DownloadFile(\"URL_DA_FOTO\" , \"foto.jpg\")");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("reg add \"HKCU\\Control Panel\\Desktop\" /v WallPaper /d \"%USERPROFILE%\\foto.jpg\" /f");
-  DigiKeyboard.delay(500);
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters ,1 ,True");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("exit");
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
+DigiKeyboardPtBr.sendKeyStroke(0);
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.println("powershell");
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.println("$client = new-object System.Net.WebClient");
+DigiKeyboardPtBr.delay(500);        
+DigiKeyboardPtBr.println("$client.DownloadFile(\"URL_DA_FOTO\" , \"foto.jpg\")");
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.println("reg add \"HKCU\\Control Panel\\Desktop\" /v WallPaper /t REG_SZ /d "" /f")
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.print("reg add \"HKCU\\Control Panel\\Desktop\" /v WallPaper /d \"%USERPROFILE%\\gato.jpg\" /f");
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.print("reg add \"HKCU\\Control Panel\\Desktop\" /v WallPaperStyle /t REG_SZ /d 2 /f");
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.println("RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters ,1 ,True");
+DigiKeyboardPtBr.delay(500);
+DigiKeyboardPtBr.println("exit");
 
   for(;;){ /*empty*/ }
 }
