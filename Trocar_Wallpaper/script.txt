@@ -1,5 +1,14 @@
 
 $client = new-object System.Net.WebClient
-$client.DownloadFile("URL_DA_FOTO" , "foto.jpg")
-reg add "HKCU\Control Panel\Desktop" /v WallPaper /d "%USERPROFILE%\foto.jpg" /f
-RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters ,1 ,True
+
+$client.DownloadFile("[URL_DA_FOTO]" , "foto.jpg")
+
+// editar as configurações do pc  
+reg add "HKCU\Control Panel\Desktop" /v WallPaper /t REG_SZ /d "" /f  
+
+reg add "HKCU\Control Panel\Desktop" /v WallPaper /d "%USERPROFILE%\gato.jpg" /f
+ 
+reg add "HKCU\Control Panel\Desktop" /v WallPaperStyle /t REG_SZ /d 2 /f
+
+// update no plano de fundo  
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
