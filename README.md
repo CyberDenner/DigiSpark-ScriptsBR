@@ -3,7 +3,8 @@
   <img src="/logo.png" alt="Pendrive Hacker" width="200">
 </h1>
 
-<p align="center">Scripts do Pendrive Hacker<br></p>
+## Descrição
+<p align="justify">Scripts do DigiSpark modificados para funcionar corretamente nos teclados do modelo PT-BR ABNT</p>
 
 ## Funcionalidades
 - [Trocar o Wallpaper](/Trocar_Wallpaper)
